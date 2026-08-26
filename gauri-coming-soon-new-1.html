@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something Special ✨</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Arial,sans-serif;color:#fff;background:linear-gradient(135deg,#170b28,#56154f,#190c30);overflow:hidden}
+.card{width:90%;max-width:430px;padding:40px 25px;border-radius:30px;background:#ffffff12;border:1px solid #ffffff30;box-shadow:0 25px 70px #0007;backdrop-filter:blur(12px)}
+.icon{font-size:60px;animation:float 2s infinite}
+h1{font-size:32px;margin:12px 0}
+.text{line-height:1.7;color:#eee}
+.date{margin:25px 0 12px;padding:16px;border-radius:18px;background:#ffffff16}
+#count{font-size:25px;font-weight:bold}
+.small{margin-top:25px;color:#cfc5d5;font-size:13px}
+@keyframes float{50%{transform:translateY(-8px) rotate(4deg)}}
+.heart{position:fixed;bottom:-30px;animation:rise 7s linear forwards;opacity:.6}
+@keyframes rise{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">✨</div>
+  <h1>Something Special</h1>
+  <div class="text">Ek chhoti si cheez prepare ho rahi hai...<br>Bas thoda sa wait. 🤫❤️</div>
+  <div class="date">A little surprise unlocks on<br><b>29 September</b></div>
+  <div id="count">Loading...</div>
+  <div class="small">Don't ask what's inside. 😌<br>You'll find out soon. ❤️</div>
+</div>
+
+<script>
+const target = new Date("2026-09-29T00:00:00+05:30").getTime();
+const DAY = 86400000;
+
+function updateCountdown(){
+  const remaining = target - Date.now();
+  const el = document.getElementById("count");
+
+  if(remaining <= 0){
+    el.textContent = "IT'S TIME! 🎂❤️";
+    return;
+  }
+
+  // Before the final 24 hours: show only whole days.
+  if(remaining > DAY){
+    const days = Math.ceil(remaining / DAY);
+    el.textContent = days + " DAYS TO GO ❤️";
+    return;
+  }
+
+  // Final 24 hours: update every second.
+  const h = Math.floor(remaining / 3600000);
+  const m = Math.floor((remaining % 3600000) / 60000);
+  const s = Math.floor((remaining % 60000) / 1000);
+  el.textContent = h + "h " + m + "m " + s + "s ❤️";
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+function heart(){
+  const e=document.createElement("div");
+  e.className="heart";
+  e.textContent=["♥","♡","✨","💗"][Math.floor(Math.random()*4)];
+  e.style.left=Math.random()*100+"vw";
+  e.style.fontSize=(14+Math.random()*20)+"px";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),7000);
+}
+setInterval(heart,800);
+</script>
+</body>
+</html>
